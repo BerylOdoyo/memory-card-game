@@ -2,6 +2,37 @@ const cards = document.querySelectorAll(".card");
 let matchedPairs = 0;
 let cardOne, cardTwo;
 let disableDeck = false;
+let timer = document.querySelector('.timer');
+let second, minute, interval;
+let counter = document.querySelector('.moves');
+let displayCongratulations = document.getElementById('congratulations');
+let modalContent = document.querySelector('.modal-content');
+
+function movesCounter() {
+  moves++;
+  counter.textContent = moves;
+  if (moves === 1) {
+    timer.textContent = '0 mins 0 secs';
+    startTimer(); //if there is a correct move the timer starts
+  }
+  if (moves > 32) {
+    starsList[1].style.visibility = "hidden";
+  } else if (moves > 28) {
+    starsList[2].style.visibility = "hidden";
+  }
+}
+
+function startTimer(){
+  interval = setInterval(function() {
+    timer.innerHTML = minute + ' mins ' + second + ' secs';
+    second++;
+    if (second === 60){
+        minute++;
+        second = 0;
+    }
+  }, 1000);
+}
+
 
 function flipCard(evt) { // take an event object's as a scoped variable
   const clickedCard = evt.target; // set the event's target DOM element as a variable
